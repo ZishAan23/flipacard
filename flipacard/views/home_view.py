@@ -8,6 +8,7 @@ class home_view:
         self.deck_list = []
         self.selected_deck_index = 0
         self.creator_view_btn = ft.TextButton("Create new deck", on_click=self.on_creator_click)
+        self.acc_details = ft.Text()
         self.sign_up_dlg = ft.AlertDialog(content=ft.Text("Please either login or sign up to be able to use online features "), actions=[ft.TextButton("Login", on_click=self.login_btn), ft.TextButton("Sign up", on_click=self.sign_up_btn)])
         self.online_view_btn = ft.TextButton("Browse Online flashcards", on_click=self.on_online_click)
         for i in find_deck_files_in("./decks"):
@@ -57,20 +58,19 @@ class home_view:
         e.page.go("/browse")
         e.page.update()
         
-
     def build(self, e):
         self.init_deck_list()
-
-        with open("auth.dat", "rb") as f:
-            try :
+        try :
+            with open("auth.dat", "rb") as f:
                 auth_data = p.load(f)
                 e.page.session.store.set("uid", auth_data["uid"])
                 e.page.session.store.set("uname", auth_data["uname"])
-            except:
+                self.acc_details.value = f"Account : {auth_data["uname"]}"
+        except:
                 add_to_overlay(e.page, self.sign_up_dlg)
                 e.page.dialog = self.sign_up_dlg
                 self.sign_up_dlg.open = True
                 e.page.update()           
 
         e.page.update()
-        return ft.View(route="/home", controls=[self.deck_list_ui, self.creator_view_btn, self.online_view_btn])
+        return ft.View(route="/home", controls=[self.acc_details,self.deck_list_ui, self.creator_view_btn, self.online_view_btn])

@@ -17,12 +17,12 @@ class online_view():
     def init_list(self,e):
         self.deck_list_ui.controls = []
         self.download_btn.visible = False
-        self.c.execute("SELECT dname,did FROM decks")
+        self.c.execute("SELECT dname,did,uname FROM decks")
         dat = self.c.fetchall()
 
         for i in dat:
             self.deck_list.append(i[1])
-            self.deck_list_ui.controls.append(ft.Container(content=ft.TextButton(i[0], on_click=self.on_deck_click)))
+            self.deck_list_ui.controls.append(ft.Container(content=ft.TextButton(f"{i[0]} by {i[2]}", on_click=self.on_deck_click)))
         e.page.update()
 
     def on_deck_click(self,e):

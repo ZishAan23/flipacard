@@ -50,6 +50,9 @@ def init_db():
          #     )""")
     #c.execute("alter table decks modify did INT AUTO_INCREMENT")
     #c.execute("alter table decks modify deck MEDIUMBLOB")
+    c.execute("SELECT * FROM decks")
+    d = c.fetchall()
+    print(d)
     
 
 
@@ -58,7 +61,7 @@ def init_db():
     connector.close()
 
 def connect_to_db():
-    connector = m.connect(host="mysql-2b2177a2-talibzishan-d4d9.h.aivencloud.com", port=28345 , user="avnadmin", passwd="AVNS_H8jJ3kFsaCTS4EGF4SZ", ssl_ca = "ca.pem", connection_timeout=5)
+    connector = m.connect(host="mysql-2b2177a2-talibzishan-d4d9.h.aivencloud.com", port=28345 , user="avnadmin", passwd="AVNS_H8jJ3kFsaCTS4EGF4SZ", ssl_ca = "ca.pem")
 
     c = connector.cursor()
 

@@ -13,6 +13,7 @@ class creator_view:
         self.add_card_button = ft.ElevatedButton("Add Card", on_click=self.add_card, expand=True)
         self.save_deck = ft.ElevatedButton("Save Deck", on_click=self.save_deck, expand=True)
         self.del_card_btn = ft.ElevatedButton("Delete Card", on_click=self.delete_card, expand=True, visible=False)
+        self.back_btn = ft.ElevatedButton("Back" , on_click=self.on_back_btn, expand=True)
 
         self.empty_dlg = ft.AlertDialog(content=ft.Text("Please fill in both fields"), actions=[ft.TextButton("OK", on_click=self.on_close_empty_dlg)])
         self.selected_card_index = -1
@@ -145,6 +146,10 @@ class creator_view:
             
         e.page.update()
 
+    def on_back_btn(self, e):
+        e.page.go("/home")
+        e.page.update()
+
     def build(self, e):
         self.select_deck_dlg = ft.FilePicker()
         e.page.update()
@@ -161,6 +166,7 @@ class creator_view:
                 self.answer_field,
                 self.add_card_button,
                 self.save_deck,
-                self.del_card_btn
+                self.del_card_btn,
+                self.back_btn
             ])
         ])

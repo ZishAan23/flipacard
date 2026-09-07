@@ -22,7 +22,8 @@ class auth_view():
         try:
             dat = self.c.fetchone()
             print(dat)
-            self.save_auth_dat(dat[0], dat[1])
+            if dat:
+                self.save_auth_dat(dat[0], dat[1])
 
         except mysql.connector.Error as er:
             print(er)
